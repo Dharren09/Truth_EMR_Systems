@@ -1,5 +1,5 @@
 {
-  "name": "Truth_EMS_Systems",
+  "name": "TruthMD",
   "version": "1.0.0",
   "description": "My Node.js Electronic Medical Records System",
   "main": "app.js",
@@ -28,5 +28,8 @@
     "random-token": "0.0.8",
     "socket.io": "^2.3.0",
     "sweetalert2": "^9.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
