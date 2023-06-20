@@ -7,13 +7,14 @@ var con = mysql.createConnection({
     host:'localhost',
     user: 'root',
     password: 'Dharrenz1996',
-    database: 'truthmd'
+    database: 'TruthMD',
+    port: '3306'
 });
 
 con.connect(function(err){
     if(err){
 	throw err;
-    }else{
+    } else{
 	console.log('Successfully connected to TruthMD Database')
     }
 });
