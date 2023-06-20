@@ -36,7 +36,7 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_id`, `first_name`, `last_name`, `date_of_birth`, `gender`, `phone`, `address`, `email`, `insurance_information`) VALUES
-(6, 'Beatrice', 'Zana', '26/03/2002', 'Female', '7865641399', 'South Africa', 'gmhs13@yopmail.com', 'Prudential');
+(6, '266636612', 'Beatrice', 'Zana', '26/03/2002', 'Female', '7865641399', 'South Africa', 'gmhs13@yopmail.com', 'Prudential');
 
 --
 -- Table structure for table `appointment`
