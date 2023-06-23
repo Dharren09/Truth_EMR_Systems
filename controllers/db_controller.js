@@ -15,6 +15,6 @@ con.connect(function(err){
     if(err){
 	throw err;
     } else{
-	console.log('Successfully connected to TruthMD Database')
+	console.log('\x1b[91mSuccessfully connected to \x1b[1mTruthMD\x1b[0m\x1b[94m Database\x1b[0m');
     }
 });
