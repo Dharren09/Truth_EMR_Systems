@@ -19,30 +19,7 @@ SET time_zone = "+00:00";
 -- Table structure for table 'patient'
 --
 
--- Table structure for table 'patient'
 CREATE TABLE IF NOT EXISTS `patient` (
-  `patient_id` int(10) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `date_of_birth` DATE  NOT NULL,
-  `gender` varchar(20) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `image` LONGBLOB NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `insurance_information` varchar(255) NOT NULL,
-  PRIMARY KEY (`patient_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Dumping data for table 'patient'
-INSERT INTO `patient` (`first_name`, `last_name`, `date_of_birth`, `gender`, `phone`, `address`, `email`, `insurance_information`)
-VALUES ('266636612', 'Beatrice', 'Zana', '26/03/2002', 'Female', '7865641399', 'South Africa', 'gmhs13@yopmail.com', 'Prudential');
-
---
--- Table structure for table `Health_worker`
---
-
-CREATE TABLE IF NOT EXISTS `health_worker` (
   `patient_id` int(10) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
@@ -50,7 +27,30 @@ CREATE TABLE IF NOT EXISTS `health_worker` (
   `gender` varchar(20) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
-  `image` text NOT NULL,
+  `image` LONGBLOB NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `insurance_information` varchar(255) NULL,
+  PRIMARY KEY (`patient_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table `patient`
+INSERT INTO `patient` (`patient_id`, `first_name`, `last_name`, `date_of_birth`, `gender`, `phone`, `address`, `image`, `email`, `insurance_information`)
+VALUES (224453553, 'Beatrice', 'Zana', '2002-03-26', 'Female', '7865641399', 'South Africa', '', 'gmhs13@yopmail.com', 'Prudential');
+
+--
+-- Table structure for table `Health_worker`
+--
+
+CREATE TABLE IF NOT EXISTS `health_worker` (
+  `id` int(10) NOT NULL,
+  `patient_id` int(10) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `date_of_birth` DATE NOT NULL,
+  `gender` varchar(20) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `image` LONGBLOB NOT NULL,
   `department` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
@@ -60,22 +60,19 @@ CREATE TABLE IF NOT EXISTS `health_worker` (
 -- Table structure for table `appointment`
 --
 
--- Table structure for table `appointment`
 CREATE TABLE IF NOT EXISTS `appointment` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL,
   `patient_id` int(10) NOT NULL,
   `department` varchar(255) NOT NULL,
   `doctor_name` varchar(255) NOT NULL,
-  `date` varchar(255) NOT NULL,
+  `date` DATE NOT NULL,
   `time` varchar(255) NOT NULL,
-  FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
-  FOREIGN KEY (`id`) REFERENCES `department` (`id`),
-  PRIMARY KEY (`id`)
+  FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table `appointment`
-INSERT INTO `appointment` (`patient_id`, `department`, `doctor_name`, `date`, `time`)
-VALUES ('6', '266636612', 'ObsGyn', 'Elior Truth', '26/03/2023', '10:43 AM');
+INSERT INTO `appointment` (`id`, `patient_id`, `department`, `doctor_name`, `date`, `time`)
+VALUES (1, 224453553, 'ObsGyn', 'Elior Truth', '2023-03-26', '10:43 AM');
 
 -- --------------------------------------------------------
 
@@ -84,9 +81,8 @@ VALUES ('6', '266636612', 'ObsGyn', 'Elior Truth', '26/03/2023', '10:43 AM');
 --
 
 CREATE TABLE IF NOT EXISTS `department` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -95,18 +91,17 @@ CREATE TABLE IF NOT EXISTS `department` (
 
 -- Table structure for table 'medical_history'
 CREATE TABLE IF NOT EXISTS `medical_history` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL,
   `patient_id` int(10) NOT NULL,
   `allergies` varchar(500) NOT NULL,
   `past_treatment` varchar(500) NOT NULL,
   `current_medication` varchar(500) NOT NULL,
-  PRIMARY KEY (`id`),
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table 'medical_history'
-INSERT INTO `medical_history` (`patient_id`, `allergies`, `past_treatment`, `current_medication`)
-VALUES ('6', 'Penicillin', 'Appendectomy in 2010', 'None');
+INSERT INTO `medical_history` (`id`, `patient_id`, `allergies`, `past_treatment`, `current_medication`)
+VALUES (6, 224453553, 'Penicillin', 'Appendectomy in 2010', 'None');
 
 -- --------------------------------------------------------
 
@@ -124,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `diagnosis` (
 
 -- Dumping data for table 'diagnosis'
 INSERT INTO `diagnosis` (`id`, `patient_id`, `diagnosis_name`, `date`)
-VALUES (2, '266636612', 'Polycystic Ovarian Syndrome', '22/08/2022');
+VALUES (2, 224453553, 'Polycystic Ovarian Syndrome', '22/08/2022');
 
 -- --------------------------------------------------------
 
@@ -143,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `medication` (
 
 -- Dumping data for table 'medication'
 INSERT INTO `medication` (`id`, `patient_id`, `medication_name`, `dosage`, `frequency`)
-VALUES (7, '266636612', 'caps wellwoman', 4, 'one tab, once a day for one month');
+VALUES (7, 224453553, 'caps wellwoman', 4, 'one tab, once a day for one month');
 
 -- --------------------------------------------------------
 
@@ -151,17 +146,17 @@ VALUES (7, '266636612', 'caps wellwoman', 4, 'one tab, once a day for one month'
 -- Table structure for table `login`
 --
 
-CREATE TABLE IF NOT EXISTS `login` (
+CREATE TABLE `login` (
   `id` int(10) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `email_status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table `login`
-INSERT INTO `login` (`id`, `username`, `password`, `email`)
-VALUES (1, 'Jesca Namembwa', 'Kwagala2023', 'kwagala@gmail.com');
+INSERT INTO `login` (`id`, `username`, `password`, `email`, `email_status`)
+VALUES (1, 'Jesca Namembwa', 'Kwagala2023', 'kwagala@gmail.com', 'verified');
 
 -- --------------------------------------------------------
 
@@ -180,12 +175,12 @@ CREATE TABLE IF NOT EXISTS `billings` (
 
 -- Dumping data for table `billings`
 INSERT INTO `billings` (`id`, `patient_id`, `procedure_code`, `total_bill`, `reason_for_payment`)
-VALUES (1, '22255252', 2212, 150000, 'Treatment and Laboratory');
+VALUES (1, 224453553, 2212, 150000, 'Treatment and Laboratory');
 
 -- ------------------------------------------------------------
 
 --
--- Table structure for table 'radiography'
+-- Table structure for table `radiography`
 --
 
 CREATE TABLE IF NOT EXISTS `radiography` (
@@ -194,14 +189,14 @@ CREATE TABLE IF NOT EXISTS `radiography` (
   `date` varchar(255) NOT NULL,
   `time` varchar(255) NOT NULL,
   `result` varchar(255) NOT NULL,
-  `image` text NOT NULL,
+  `image` LONGBLOB NOT NULL,
   `done_by` varchar(255) NOT NULL,
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table 'radiography'
-INSERT INTO `radiography` (`id`, `patient_id`, `date`, `time`, `result`, `done_by`)
-VALUES (4, '2225244', '20/03/2023', '12:00 am', 'Ovarian Syndrome', 'Wycliffe, Kampala Imaging Centre');
+INSERT INTO `radiography` (`id`, `patient_id`, `date`, `time`, `result`, `image`, `done_by`)
+VALUES (4, 224453553, '2023-03-20', '12:00 am', 'Ovarian Syndrome', NULL, 'Wycliffe, Kampala Imaging Centre');
 
 --
 -- Table structure for table `lab`
@@ -218,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `lab` (
 
 -- Dumping data for table `lab`
 INSERT INTO `lab` (`id`, `patient_id`, `test_name`, `result`, `done_by`)
-VALUES (21, '22333222', 'Hormonal Profile', 'Elevated FSH', 'Warid, Ebenezer laboratories');
+VALUES (21, 224453553, 'Hormonal Profile', 'Elevated FSH', 'Warid, Ebenezer Laboratories');
 
 -- --------------------------------------------------------
 
@@ -249,69 +244,11 @@ INSERT INTO `verify` (`id`, `username`, `email`, `token`) VALUES
 --
 ALTER TABLE `patient`
   ADD PRIMARY KEY (`patient_id`);
-  MODIFY `image` LONGBLOB NOT NULL;
-
---
--- Indexes for table `health_worker`
---
-ALTER TABLE `health_worker`
-  ADD PRIMARY KEY (`id`);
-  MODIFY `image` LONGBLOB NOT NULL;
-
---
--- Indexes for table `appointment`
---
-ALTER TABLE `appointment`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `medical_history`
---
-ALTER TABLE `medical_history`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `diagnosis`
---
-ALTER TABLE `diagnosis`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `medication`
---
-ALTER TABLE `medication`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `radiography`
---
-ALTER TABLE `radiography`
-  ADD PRIMARY KEY (`id`)i;
-  MODIFY `image` LONGBLOB NOT NULL;
-
---
--- Indexes for table `billings`
---
-ALTER TABLE `billings`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `lab`
---
-ALTER TABLE `lab`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `verify`
 --
 ALTER TABLE `verify`
-  ADD PRIMARY KEY (`id`);
   MODIFY `username` varchar(50) NOT NULL,
   MODIFY `email` varchar(100) NOT NULL,
   MODIFY `token` varchar(50) NOT NULL;
