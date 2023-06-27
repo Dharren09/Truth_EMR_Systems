@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `email` varchar(255) NOT NULL,
   `insurance_information` varchar(255) NULL,
   PRIMARY KEY (`patient_id`)
+  INDEX `idx_patient_id` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table `patient`
@@ -55,6 +56,10 @@ CREATE TABLE IF NOT EXISTS `health_worker` (
   `email` varchar(255) NOT NULL,
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table `health_worker`
+INSERT INTO `health_worker` (`id`, `patient_id`, `first_name`, `last_name`, `date_of_birth`, `gender`, `phone`, `address`, `image`, `department`, `email`)
+VALUES (2, 224453553, 'Elior', 'Truth', '2023-03-28', 'Male', '7865641399', 'Nyanama', '', 'Neurosurgery', 'elior@icloud.com');
 
 --
 -- Table structure for table `appointment`
@@ -82,8 +87,11 @@ VALUES (1, 224453553, 'ObsGyn', 'Elior Truth', '2023-03-26', '10:43 AM');
 
 CREATE TABLE IF NOT EXISTS `department` (
   `id` int(10) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table `department`
+INSERT INTO `department` (`id`, `name`) VALUES (3, 'Neurosurgery');
 
 --
 -- Table structure for table 'medical_history'

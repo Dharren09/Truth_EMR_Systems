@@ -14,6 +14,7 @@ var http = require('http');
 var app = require('express');
 var bodyParser = require('body-parser')
 var db = require('./controllers/db_controller');
+var signup = require('./models/signup')
 
 var app = express();
 
