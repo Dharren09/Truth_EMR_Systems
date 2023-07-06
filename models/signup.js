@@ -5,6 +5,9 @@ var mysql = require('mysql');
 var db = require.main.require('./controllers/db_controller');
 var nodemailer = require('nodemailer');
 var randomToken = require('random-token');
+var ejs = require('ejs');
+var path = require('path');
+var bcrypt = require('bcrypt');
 
 const { check, validationResult } = require('express-validator');
 
@@ -24,42 +27,53 @@ router.post('/', [
   var email = req.body.email;
   var username = req.body.username;
 
-  db.signup(req.body.username, req.body.email, req.body.password, req.body.email_status);
-  var token = randomToken(10);
-  db.verify(req.body.username, email, token);
-  db.userId(email, function(err, result) {
-    var id = result[0].id;
-    var output = `<p>Dear '${username}'</p>
-    <p>Thank you for signing up with TruthMD EHS Systems, your verification id and token are provided below:</p>
-    <ul>
-      <li>User ID: '${id}'</li>
-      <li>Token: '${token}'</li>
-    </ul>
-    <p>Verify using this link: <a href="https://localhost:8000/verify">Verify</a></p>
-    <p><b>This is an automatically generated email</b></p>`;
+  bcrypt.hash(req.body.password, 10, function(err, hashedPassword) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    
+    db.signup(req.body.username, req.body.email, req.body.password, req.body.email_status);
+    var token = randomToken(10);
+    db.verify(req.body.username, email, token);
+    db.getuserid(email, function(err, result) {
+      var id = result[0].id;
+      var output = ejs.renderFile(
+        path.join(__dirname, './views/verification.ejs'),
+        { username: username, id: id, token: token },
+        function(err, renderHtml) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+        }
+      );
 
-    var transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: "dharrydharrenzerah@gmail.com",
-        password: "Dharrenz"
-      }
+      var transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: "dharrydharrenzerah@gmail.com",
+          password: "Dharrenz"
+        }
+      });
+    
+      var mailOptions = {
+        from: "TruthMD EHS Systems",
+        to: email,
+        subject: "User account Verification",
+        html: renderHtml
+      };
+    
+      transporter.sendMail(mailOptions, function(err, info) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log(info);
+      });
+      res.render('verification', { username: username, id: id, token: token });
     });
-    var mailOptions = {
-      from: "TruthMD EHS Systems",
-      to: email,
-      subject: "User account Verification",
-      html: output
-    };
-    transporter.sendMail(mailOptions, function(err, info) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log(info);
-    });
-    res.send("Please check your email for verification details");
   });
 });
 

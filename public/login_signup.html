@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login and Signup Page</title>
+  <title>Login and Signup</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.17/dist/tailwind.min.css" rel="stylesheet">
   <style>
     .hidden {
@@ -30,17 +30,17 @@
       </div>
       <div id="loginForm" class="mb-8">
         <h2 class="text-lg text-center font-bold mb-4">Login</h2>
-        <form>
+        <form action="/login" method="POST">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
+            <input name="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Enter your password">
+            <input name="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Enter your password">
           </div>
           <div class="flex items-center justify-between">
-            <button class="bg-blue-500 hover:bg-white hover:text-green-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            <button class="bg-blue-500 hover:bg-white hover:text-green-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
               Sign In
             </button>
             <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:bg-white hover:text-green-300 underline" href="#">
@@ -51,21 +51,21 @@
       </div>
       <div id="signupForm" class="hidden">
         <h2 class="text-lg text-center font-bold mb-4">Signup</h2>
-        <form>
+        <form action="/signup" methods="POST">
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter your name">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username</label>
+            <input name="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter your name">
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
+            <input name="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Enter your password">
           </div>
           <div class="flex items-center justify-between">
-            <button class="bg-green-500 hover:bg-white hover:text-green-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            <button class="bg-green-500 hover:bg-white hover:text-green-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
               Sign Up
             </button>
           </div>
@@ -88,6 +88,63 @@
         document.getElementById('signupLink').classList.add('underline-clicked');
       }
     }
+
+    // Login form submission
+    document.getElementById('loginForm').addEventListerner('submit', function(event) {
+      event.preventDefault();
+
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value
+
+      var data = {
+        email: email,
+        password: password
+      };
+
+      // an AJAX POST request to your login route
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(function (response) {
+        return response.json();
+      })
+    });
+
+    // Signup form submission
+    document.getElementById('signupForm').addEventListerner('submit', function (event){
+      event.preventDefault();
+
+      var username = document.getElementById('username').value;
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+
+      var data = {
+        username: username,
+        email: email,
+        password: password
+      };
+
+      fetch('/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    });
   </script>
 </body>
 

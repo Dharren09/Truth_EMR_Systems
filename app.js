@@ -14,18 +14,24 @@ var http = require('http');
 var app = require('express');
 var bodyParser = require('body-parser')
 var db = require('./controllers/db_controller');
-var signup = require('./models/signup')
+var signupRouter = require('./models/signup')
 
 var app = express();
+var path = require('path');
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static('./public'));
+app.use(express.static(path.join(__dirname, './public')));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-	
+app.use('/signup', signupRouter)
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, './public/login_signup.html'))
+});
+
 var server = app.listen(8000, function(){
     console.log('\x1b[94m\x1b[1mTruth\x1b[0m\x1b[34m\x1b[1mMD\x1b[0m\x1b[90m server has been started successfully\x1b[0m');
 });
