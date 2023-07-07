@@ -4,10 +4,12 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var db = require.main.require('./controllers/db_controller');
 var nodemailer = require('nodemailer');
-var randomToken = require('random-token');
+// var randomToken = require('random-token');
 var ejs = require('ejs');
 var path = require('path');
 var bcrypt = require('bcrypt');
+var cryptoRandomString = require('crypto-random-string');
+
 
 const { check, validationResult } = require('express-validator');
 
@@ -17,7 +19,8 @@ router.use(bodyParser.json());
 router.post('/', [
   check('username').notEmpty().withMessage("Username is required"),
   check('password').notEmpty().withMessage("Password is required"),
-  check('email').notEmpty().withMessage("Email is required")
+  check('email').notEmpty().withMessage("Email is required"),
+  check('role').notEmpty().withMessage("Role is required")
 ], function(req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -26,6 +29,7 @@ router.post('/', [
   var email_status = "email is not verified";
   var email = req.body.email;
   var username = req.body.username;
+  var role = req.body.role;
 
   bcrypt.hash(req.body.password, 10, function(err, hashedPassword) {
     if (err) {
@@ -33,14 +37,14 @@ router.post('/', [
       return;
     }
     
-    db.signup(req.body.username, req.body.email, req.body.password, req.body.email_status);
-    var token = randomToken(10);
+    db.signup(req.body.username, req.body.email, req.body.password, req.body.email_status, req.body.role);
+    var token = cryptoRandomString({ length: 10, type: 'alphanumeric' });
     db.verify(req.body.username, email, token);
     db.getuserid(email, function(err, result) {
       var id = result[0].id;
       var output = ejs.renderFile(
         path.join(__dirname, './views/verification.ejs'),
-        { username: username, id: id, token: token },
+        { username: username, id: id, token: token, role: role },
         function(err, renderHtml) {
           if (err) {
             console.log(err);
@@ -54,8 +58,8 @@ router.post('/', [
         port: 465,
         secure: true,
         auth: {
-          user: "dharrydharrenzerah@gmail.com",
-          password: "Dharrenz"
+          user: "truthmdehssystems@gmail.com",
+          password: "Truthmd"
         }
       });
     
@@ -63,7 +67,8 @@ router.post('/', [
         from: "TruthMD EHS Systems",
         to: email,
         subject: "User account Verification",
-        html: renderHtml
+        html: renderHtml,
+        text: `Thank you for signing up! Your role is: ${role}`,
       };
     
       transporter.sendMail(mailOptions, function(err, info) {
