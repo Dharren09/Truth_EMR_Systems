@@ -178,6 +178,8 @@ CREATE TABLE IF NOT EXISTS `billings` (
   `procedure_code` varchar(30) NOT NULL,
   `total_bill` int(30) NOT NULL,
   `reason_for_payment` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `health_worker` varchar(255) NOT NULL,
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

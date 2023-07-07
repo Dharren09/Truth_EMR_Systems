@@ -8,13 +8,17 @@ var nodemailer = require('nodemailer');
 var ejs = require('ejs');
 var path = require('path');
 var bcrypt = require('bcrypt');
-var cryptoRandomString = require('crypto-random-string');
+var crypto = require('crypto');
 
 
 const { check, validationResult } = require('express-validator');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+
+router.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '../public/login_signup.html'))
+});
 
 router.post('/', [
   check('username').notEmpty().withMessage("Username is required"),
@@ -38,12 +42,12 @@ router.post('/', [
     }
     
     db.signup(req.body.username, req.body.email, req.body.password, req.body.email_status, req.body.role);
-    var token = cryptoRandomString({ length: 10, type: 'alphanumeric' });
+    var token = crypto.randomUUID();
     db.verify(req.body.username, email, token);
     db.getuserid(email, function(err, result) {
       var id = result[0].id;
       var output = ejs.renderFile(
-        path.join(__dirname, './views/verification.ejs'),
+        path.join(__dirname, '../views/verification.ejs'),
         { username: username, id: id, token: token, role: role },
         function(err, renderHtml) {
           if (err) {
@@ -76,7 +80,7 @@ router.post('/', [
           return console.log(err);
         }
         console.log(info);
-      });
+      })
       res.render('verification', { username: username, id: id, token: token });
     });
   });
