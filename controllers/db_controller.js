@@ -21,7 +21,7 @@ con.connect(function(err) {
   }
 });
 
-module.exports.signup = function(username, email, password, status, callback) {
+module.exports.signup = function(username, email, password, status, role, callback) {
   con.query('SELECT email FROM login WHERE email = ?', [email], function(err, result) {
     if (result[0] === undefined) {
       bcrypt.hash(password, 10, function(err, hashedpassword) {
@@ -30,8 +30,8 @@ module.exports.signup = function(username, email, password, status, callback) {
           return;
         }
         
-        var query = "INSERT INTO `login`(`username`, `email`, `password`, `email_status`) VALUES (?, ?, ?, ?)";
-        con.query(query, [username, email, password, status], function(err, result) {
+        var query = "INSERT INTO `login`(`username`, `email`, `password`, `email_status`, `role`) VALUES (?, ?, ?, ?)";
+        con.query(query, [username, email, password, status, role], function(err, result) {
           if (err) {
             console.log(err);
           } else {
