@@ -34,12 +34,13 @@ router.post('/register', async (req, res) => {
       address,
       dob
     });
-    //await user.save();
+    await user.save();
 
 
     //create role-specific models
     if (role === 'patient') {
       const patient = new Patient({
+        userId: user.id,
         name: user.name,
         username: user.username,
         email: user.email,
@@ -53,6 +54,7 @@ router.post('/register', async (req, res) => {
       res.status(200).json({ message: 'Patient registration successful' });
     } else {
       const provider = new Provider({
+        userId: user.id,
         name: user.name,
         username: user.username,
         email: user.email,
@@ -65,9 +67,10 @@ router.post('/register', async (req, res) => {
       await provider.save();
       res.status(200).json({ message: 'Provider registration successful' });
     }
-    //res.status(201).json(newUser)
+    
+    /*//res.status(201).json(user)
     // Create and sign a JWT token
-    /*const token = jwt.sign({ userId: newUser._id }, 'secret-key', {
+    const token = jwt.sign({ userId: user._id }, 'secret-key', {
       expiresIn: '1h',
     });
 
@@ -97,13 +100,11 @@ router.post('/login', async (req, res) => {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
-    /*
 
     // Create and sign a JWT token
     const token = jwt.sign({ userId: user._id }, 'secret-key', {
       expiresIn: '1h',
     });
-    */
 
     // Send the token as a response
     //res.json({ token });

@@ -14,17 +14,6 @@ router.get('/', async(req, res) => {
     }
 });
 
-router.post('/', async(req, res) => {
-    try {
-        const patient = req.body;
-        await Patient.create(patient);
-        res.json(patient);
-    } catch (error) {
-        console.error('Error Creating patient:', error);
-        res.status(500).json({ error: 'Failed to create Patient'});
-    }
-});
-
 router.put('/:id', async (req, res) => {
     const patient = await Patient.findByPk(req.params.id)
     .then((patient) => {
@@ -46,20 +35,14 @@ router.put('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async(req, res) => {
-    const patient = await Patient.findByPk(req.params.id)
-    .then((patient) => {
-        if (patient) {
-            return patient.destroy();
-        } else {
-            throw new Error('Patient Not Found');
-        }
-    })
-    .then(() => {
-        console.log('Patient deleted');
-    })
-    .catch((error) => {
-        console.error('Error Deleting Patient:', error);
-    });
+    const patientId = req.params.id;
+    try {
+        await Patient.destroy({where:{id: patientId}});
+        res.status(200).json({message: 'Patient deleted successfuly'});
+    } catch(error) {
+        console.error('Deletion Error', error);
+        res.status(500).json({message: 'Failed to delete Patient'});
+    }
 });
 
 module.exports = router;
