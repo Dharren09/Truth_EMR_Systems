@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Service.associate = (models) => {
-    Service.belongsTo(models.Provider, { foreignKey: 'providerId' });
+    //Service.belongsTo(models.Provider, { foreignKey: 'providerId' });
+    Service.belongsToMany(models.Provider, { through: 'ProviderService' });
     Service.hasMany(models.Appointment, { foreignKey: 'serviceId' });
   };
 

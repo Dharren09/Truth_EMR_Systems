@@ -59,7 +59,10 @@ module.exports = (sequelize, DataTypes) => {
   
     Provider.associate = (models) => {
       Provider.belongsTo(models.User, { foreignKey: 'userId' });
-      Provider.hasMany(models.Service, { foreignKey: 'providerId' });
+      //Provider.hasMany(models.Service, { foreignKey: 'providerId' });
+      Provider.belongsToMany(models.Service, { through: 'ProviderService' });
+      Provider.hasMany(models.Patient, { foreignKey: 'providerId' });
+      Provider.hasMany(models.Appointment, { foreignKey: 'providerId' });
     };
   
     return Provider;

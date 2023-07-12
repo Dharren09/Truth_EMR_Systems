@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+
 //const { authenticateToken } = require('./middleware/middleware');
 const patientRoute = require('./routes/patients');
 const authRoute = require('./routes/auth');
@@ -9,11 +11,19 @@ const appointmentRoute = require('./routes/appointments');
 const paymentRoute = require('./routes/payments');
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // db connection
 const db = require('./models');
 
+//set views
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 //routes
+app.get('/', (req, res) => {
+    res.render('auth');
+});
 app.use('/patients', patientRoute);
 app.use('/user', authRoute);
 app.use('/providers', providerRoute);
