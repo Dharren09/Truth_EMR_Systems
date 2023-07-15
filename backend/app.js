@@ -8,6 +8,7 @@ const providerRoute = require('./routes/providers');
 const serviceRoute = require('./routes/services');
 const appointmentRoute = require('./routes/appointments');
 const paymentRoute = require('./routes/payments');
+const userRoute = require('./routes/users');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,6 +30,7 @@ app.use('/providers', providerRoute);
 app.use('/services', serviceRoute);
 app.use('/appointments', appointmentRoute);
 app.use('/payments', paymentRoute);
+app.use('/users', userRoute);
 
 db.sequelize.sync({ alter: true }).then(() => {
     console.log('DB connection Successful');
