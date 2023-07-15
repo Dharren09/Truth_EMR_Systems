@@ -27,7 +27,7 @@ exports.createAppointment = async (req, res) => {
     if (!provider) {
       return res.status(404).json({ error: 'Provider not found' });
     }
-
+    //console.log(provider.id);
     // Check if the selected service exists
     const service = await Service.findByPk(serviceId, {
       include: [Provider],
@@ -37,7 +37,11 @@ exports.createAppointment = async (req, res) => {
     }
 
     // Check if the selected provider is associated with the service
-    const isValidProvider = service.Providers.some((p) => p.id === providerId);
+    const providerList = service.dataValues.Providers;
+    const isValidProvider = providerList.some(p => {
+      console.log("Comparing:", p.dataValues.id, providerId);
+      return p.dataValues.id === parseInt(providerId);
+    });
     if (!isValidProvider) {
       return res.status(400).json({ error: 'Selected provider is not associated with the service' });
     }

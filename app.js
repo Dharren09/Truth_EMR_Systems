@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-//const { authenticateToken } = require('./middleware/middleware');
 const patientRoute = require('./routes/patients');
 const authRoute = require('./routes/auth');
 const providerRoute = require('./routes/providers');
