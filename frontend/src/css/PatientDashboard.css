@@ -1,0 +1,204 @@
+/* Global Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header */
+  
+  .header {
+    height: 80px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  .logo {
+    width: 200px;
+  }
+  
+  .nav {
+    display: flex;
+  }
+  
+  .nav-item {
+    margin-left: 20px;
+  }
+  
+  .nav-link {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .nav-link:hover {
+    color: #0099ff;
+  }
+  
+  .logout-button {
+    background-color: #0099ff;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Sidebar */
+  
+  .sidebar {
+    width: 250px;
+    height: calc(100vh - 80px);
+    background-color: navy;
+    position: fixed;
+    top: 80px;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 40px;
+  }
+  
+  .sidebar-menu-item {
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar-menu-link {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    padding: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar-menu-link:hover {
+    background-color: #0099ff;
+  }
+  
+  .sidebar-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    color: #ffffff;
+    text-align: center;
+  }
+  
+  /* Main */
+  
+  .main {
+    margin-left: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    color: #000000;
+  }
+  
+  .dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .vitals-item,
+  .weight-height-bmi-item,
+  .blood-group-allergies-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .vitals-label,
+  .weight-height-bmi-label,
+  .blood-group-allergies-label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .visits-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .visit-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .visit-date {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .visit-description {
+    color: #666666;
+  }
+  
+  .notifications-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .notification-item {
+    margin-bottom: 10px;
+  }
+  
+  .notification-message {
+    color: #666666;
+  }
+  
+  .educational-content {
+    text-align: center;
+  }
+  
+  .educational-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .educational-description {
+    color: #666666;
+  }
