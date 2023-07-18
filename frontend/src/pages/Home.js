@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useUsersContext } from '../hooks/useUsersContext'
 
 import UserDetails  from '../components/UserDetails'
 
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
+  const {users, dispatch} = useUsersContext()
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -12,11 +13,11 @@ const Home = () => {
       const json = await response.json();
 
       if (response.ok) {
-        setUsers(json);
+        dispatch({type: 'SET_USERS', payload: json})
       }
     };
     fetchUsers();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="home">
