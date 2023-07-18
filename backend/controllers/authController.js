@@ -104,3 +104,10 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ error: 'Login error occurred' });
   }
 };
+
+exports.logoutUser = async (req, res) => {
+  const { userId } = req;
+  const token = jwt.sign({}, SECRET_KEY, { expiresIn: 0 });
+  res.clearCookie('access_token'); // Clear the token cookie
+  res.status(200).json({ message: 'Logged out successfully' });
+};

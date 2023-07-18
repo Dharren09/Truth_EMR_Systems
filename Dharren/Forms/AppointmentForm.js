@@ -4,44 +4,53 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 const AppointmentForm = () => {
-  const [services, setServices] = useState([]);
   const [providers, setProviders] = useState([]);
-  const [selectedService, setSelectedService] = useState('');
+  const [services, setServices] = useState([]);
   const [selectedProvider, setSelectedProvider] = useState('');
+  const [selectedService, setSelectedService] = useState('');
   const [appointmentDate, setAppointmentDate] = useState(new Date());
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    // Fetch services data from the backend
-    const fetchServices = async () => {
+    // Fetch providers and services data from the backend
+    const fetchProvidersAndServices = async () => {
       try {
-        const response = await axios.get('/services'); // Replace with your API endpoint for fetching services
-        const servicesData = response.data;
-        setServices(servicesData);
+        const response = await axios.get('/api/providers'); // Replace with your API endpoint for fetching providers
+        const providersData = response.data;
+        setProviders(providersData);
+
+        // Fetch services for the first provider initially
+        if (providersData.length > 0) {
+          const firstProviderId = providersData[0].id;
+          fetchServicesForProvider(firstProviderId);
+        }
       } catch (error) {
-        console.error('Error fetching services:', error);
+        console.error('Error fetching providers:', error);
       }
     };
 
-    fetchServices();
+    fetchProvidersAndServices();
   }, []);
 
-  const handleServiceChange = async (event) => {
-    const serviceId = event.target.value;
-    setSelectedService(serviceId);
+  const fetchServicesForProvider = async (providerId) => {
     try {
-      const response = await axios.get('/providers'); // Replace with your API endpoint for fetching providers associated with a service
-      const providersData = response.data;
-      setProviders(providersData);
+      const response = await axios.get(`/api/providers/${providerId}/services`); // Replace with your API endpoint for fetching services for a provider
+      const servicesData = response.data;
+      setServices(servicesData);
     } catch (error) {
-      console.error('Error fetching providers:', error);
+      console.error('Error fetching services:', error);
     }
   };
 
   const handleProviderChange = (event) => {
     const providerId = event.target.value;
     setSelectedProvider(providerId);
+    fetchServicesForProvider(providerId);
+  };
+
+  const handleServiceChange = (event) => {
+    setSelectedService(event.target.value);
   };
 
   const handleDateChange = (date) => {
@@ -56,14 +65,14 @@ const AppointmentForm = () => {
     event.preventDefault();
 
     // Validate the form inputs
-    if (!selectedService || !selectedProvider || !appointmentDate) {
+    if (!selectedProvider || !selectedService || !appointmentDate) {
       setErrorMessage('Please fill in all the required fields');
       return;
     }
 
     try {
       // Send the appointment data to the backend for creation
-      const response = await axios.post('/appointments', {
+      const response = await axios.post('/api/appointments', {
         providerId: selectedProvider,
         serviceId: selectedService,
         appointmentDate,
@@ -71,8 +80,8 @@ const AppointmentForm = () => {
       }); // Replace with your API endpoint for creating appointments
 
       // Reset form inputs and error message
-      setSelectedService('');
       setSelectedProvider('');
+      setSelectedService('');
       setAppointmentDate(new Date());
       setAdditionalInfo('');
       setErrorMessage('');
@@ -92,23 +101,23 @@ const AppointmentForm = () => {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="service">Service:</label>
-          <select id="service" value={selectedService} onChange={handleServiceChange}>
-            <option value="">Select a service</option>
-            {services.map((service) => (
-              <option key={service.id} value={service.id}>
-                {service.serviceName}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
           <label htmlFor="provider">Provider:</label>
           <select id="provider" value={selectedProvider} onChange={handleProviderChange}>
             <option value="">Select a provider</option>
             {providers.map((provider) => (
               <option key={provider.id} value={provider.id}>
                 {provider.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="service">Service:</label>
+          <select id="service" value={selectedService} onChange={handleServiceChange}>
+            <option value="">Select a service</option>
+            {services.map((service) => (
+              <option key={service.id} value={service.id}>
+                {service.name}
               </option>
             ))}
           </select>

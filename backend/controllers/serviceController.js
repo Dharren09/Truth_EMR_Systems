@@ -12,6 +12,22 @@ exports.getServices = async (req, res) => {
   }
 };
 
+//
+exports.getServiceById = async (req, res) => {
+  try {
+    const serviceId = req.params.id;
+    const service = await Service.findById(serviceId);
+    if (!service) {
+      return res.status(404).json({ error: 'Service not found' });
+    }
+    res.json(service);
+  } catch (error) {
+    console.error('Error fetching service by ID:', error);
+    res.status(500).json({ error: 'Failed to fetch service by ID' });
+  }
+};
+//
+
 exports.createService = async (req, res) => {
   try {
     const { userId } = req; // Get the authenticated user ID from the request
