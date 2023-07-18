@@ -1,20 +1,25 @@
 import { useUsersContext } from '../hooks/useUsersContext';
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const UserDetails = ({ user }) => {
   const { dispatch } = useUsersContext();
+  const { auth_user } = useAuthContext()
 
   const handleClick = async () => {
-    try {
-      const response = await fetch(`/users/${user.id}`, {
-        method: 'DELETE'
-      });
-      const json = await response.json();
+    if (!auth_user) {
+      return
+    }
 
-      if (response.ok) {
+    const response = await fetch(`/users/${user.id}`, {
+        method: 'DELETE', 
+        headers: {
+          'Authorization': `Bearer ${auth_user.token}`
+        }
+    });
+    const json = await response.json();
+
+    if (response.ok) {
         dispatch({ type: 'DELETE_USER', payload: json });
-      }
-    } catch (error) {
-      console.error('Error deleting user:', error);
     }
   };
 

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useSignup } from "../hooks/useSignup"
 
 const SignupForm =() => {
     const [name, setName] = useState('')
@@ -10,42 +11,17 @@ const SignupForm =() => {
     const [address, setAddress] = useState('')
     const [dob, setDob] = useState('')
     const [role, setRole] = useState('')
-    const [error, setError] = useState(null)
+    const {signup, error, isLoading} = useSignup()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const user = {name, username, email, password, gender, contact, address, dob, role}
-
-        const response = await fetch('/user/register', {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        const json = await response.json()
-        if (!response.ok) {
-            setError(json.error)
-        }
-        if (response.ok) {
-            setName('')
-            setUsername('')
-            setEmail('')
-            setPassword('')
-            setGender('')
-            setContact('')
-            setAddress('')
-            setDob('')
-            setRole('')
-            setError(null)
-            console.log('User Registered', json)
-        }
+        await signup(name, username, email, password, gender, contact, address, dob, role)
     }
 
     return (
-        <form className="create" onSubmit={handleSubmit}>
-            <h3>Signup</h3>
+        <form className="signup" onSubmit={handleSubmit}>
+            <h3>Sign up</h3>
 
             <label>Name: </label>
             <input 
@@ -101,7 +77,7 @@ const SignupForm =() => {
                 onChange={(e) => setRole(e.target.value)}
                 value={role} 
             />
-            <button>signup</button>
+            <button disabled={isLoading}>Sign up</button>
             {error && <div className="error">{error}</div>}
         </form>
     )

@@ -6,14 +6,14 @@ export const useSignup = () => {
   const [isLoading, setIsLoading] = useState(null)
   const { dispatch } = useAuthContext()
 
-  const signup = async (email, password) => {
+  const signup = async (name, username, email, password, gender, contact, address, dob, role) => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch('/api/user/signup', {
+    const response = await fetch('/user/register', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ name, username, email, password, gender, contact, address, dob, role })
     })
     const json = await response.json()
 
@@ -23,7 +23,7 @@ export const useSignup = () => {
     }
     if (response.ok) {
       // save the user to local storage
-      localStorage.setItem('user', JSON.stringify(json))
+      localStorage.setItem('auth_user', JSON.stringify(json))
 
       // update the auth context
       dispatch({type: 'LOGIN', payload: json})

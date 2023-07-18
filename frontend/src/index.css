@@ -97,13 +97,16 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+input.error {
+  border: 1px solid var(--error);
+}
 
 /* navbar */
 nav {
   display: flex;
   align-items: center;
 }
-nav a {
+nav a, nav button {
   margin-left: 10px;
 }
 nav button {
@@ -125,3 +128,4 @@ form.signup, form.login {
   background: #fff;
   border-radius: 4px;
 }
+

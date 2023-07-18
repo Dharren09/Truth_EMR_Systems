@@ -1,8 +1,10 @@
 import { useState } from "react"
 import {useUsersContext} from '../hooks/useUsersContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const UserForm =() => {
     const { dispatch } = useUsersContext()
+    const { auth_user } = useAuthContext()
 
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
@@ -20,13 +22,19 @@ const UserForm =() => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        if (!auth_user) {
+            setError('You must be Logged in')
+            return
+        }
+
         const user = {name, username, email, password, gender, contact, address, dob, role}
 
         const response = await fetch('/user/register', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth_user.token}`
             }
         })
         const json = await response.json()
@@ -45,14 +53,14 @@ const UserForm =() => {
             setDob('')
             setRole('')
             setError(null)
-            console.log('User Registered', json)
+            setEmptyFields([])
             dispatch({type: 'CREATE_WORKOUT', payload: json})
         }
     }
 
     return (
         <form className="create" onSubmit={handleSubmit}>
-            <h3>Register</h3>
+            <h3>Signup</h3>
 
             <label>Name: </label>
             <input 
@@ -119,7 +127,7 @@ const UserForm =() => {
                 value={role} 
                 className={emptyFields.includes('role') ? 'error' : ''}
             />
-            <button>Register</button>
+            <button>Signup</button>
             {error && <div className="error">{error}</div>}
         </form>
     )

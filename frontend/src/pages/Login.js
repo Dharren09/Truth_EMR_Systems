@@ -1,56 +1,39 @@
 import React, { useState } from 'react';
+import { useLogin } from "../hooks/useLogin"
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const {login, error, isLoading} = useLogin();
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
 
-    if (!email || !password) {
-      setError('All fields must be specified');
-      return;
+    await login(email, password)
+
     }
 
-    const user = {email, password}
-
-        const response = await fetch('/user/login', {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        const json = await response.json()
-        if (!response.ok) {
-            setError(json.error)
-        }
-        if (response.ok) {
-            setEmail('')
-            setPassword('')
-            setError(null)
-            console.log('User Logged in', json)
-        }
-  };
-
   return (
-    <form onSubmit={handleLoginSubmit}>
-    <h3>Login</h3>
+    <form className="login" onSubmit={handleLoginSubmit}>
+    <h3>Log in</h3>
+
+    <label>Email address:</label>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
       />
+      <label>Password:</label>
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      {error && <p>{error}</p>}
-      <button type="submit">Login</button>
+      
+      <button disabled={isLoading}>Log in</button>
+      {error && <div className="error">{error}</div>}
     </form>
   );
 };
