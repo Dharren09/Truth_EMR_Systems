@@ -20,11 +20,11 @@ const db = require('./models');
 // Enable CORS on all routes
 app.use(cors());
 
-// serving react files from thr react application
+// serving react files from the react application
 const reactApp = path.join(__dirname, path...to the react templates);
 app.use(express.static(reactApp));
 
-// add the get route for the lsnding page
+// add the get route for the landing page
 
 //set views
 // app.set('views', path.join(__dirname, 'views'));
