@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const cors = require('cors');
+const cors = require('cors'); // npm install cors
 
 const patientRoute = require('./routes/patients');
 const authRoute = require('./routes/auth');
