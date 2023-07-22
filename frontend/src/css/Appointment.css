@@ -1,0 +1,87 @@
+.appointment-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  select,
+  input[type="date"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  button[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .react-calendar {
+    max-width: 300px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .react-calendar__tile--now {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .react-calendar__tile--active {
+    background-color: #e0e0e0;
+  }
+  
+  .react-calendar__tile--hasActive {
+    background-color: #ccc;
+  }
+  
+  .react-calendar__tile--rangeStart,
+  .react-calendar__tile--rangeEnd {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .react-calendar__tile--rangeActive {
+    background-color: #81c784;
+    color: #fff;
+  }

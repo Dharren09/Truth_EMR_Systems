@@ -1,0 +1,41 @@
+{
+  "name": "TruthMD",
+  "version": "1.0.0",
+  "description": "Node.js Electronic Medical Records System",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "Makoha Dharren Pius, Beatrice Zana & Lourdel K",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.1.1",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^3.0.1",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.1.6",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.4.0",
+    "flash": "^1.1.0",
+    "jsonwebtoken": "^9.0.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.4.3",
+    "nodemailer": "^6.4.2",
+    "path": "^0.12.7",
+    "popups": "^1.1.3",
+    "random-token": "0.0.8",
+    "sequelize": "^6.32.1",
+    "sequelize-cli": "^6.6.1",
+    "socket.io": "^2.3.0",
+    "stripe": "^12.12.0",
+    "sweetalert2": "^9.8.2",
+    "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
