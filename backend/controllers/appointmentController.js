@@ -10,6 +10,20 @@ exports.getAppointments = async (req, res) => {
   }
 };
 
+exports.getAppointmentById = async (req, res) => {
+  try {
+    const appointmentId = req.params.id;
+    const appointment = await Appointment.findByPk(appointmentId);
+    if (!appointment) {
+      return res.status(404).json({ error: 'Appointment not found' });
+    }
+    res.json(appointment);
+  } catch (error) {
+    console.error('Error fetching appointment by ID:', error);
+    res.status(500).json({ error: 'Failed to fetch appointment by ID' });
+  }
+};
+
 exports.createAppointment = async (req, res) => {
   try {
     const { userId } = req; // Get the authenticated user ID (patient's ID)
@@ -27,7 +41,7 @@ exports.createAppointment = async (req, res) => {
     if (!provider) {
       return res.status(404).json({ error: 'Provider not found' });
     }
-    //console.log(provider.id);
+    
     // Check if the selected service exists
     const service = await Service.findByPk(serviceId, {
       include: [Provider],
@@ -72,9 +86,19 @@ exports.createAppointment = async (req, res) => {
       updatedAt: new Date(),
     });
 
+    //Retrieve the names of provider, service and patient
+    const servicename = service.serviceName;
+    const providerName = provider.name;
+    const patientName = patient.name;
+
     // Return the created appointment with payment details
     res.json({
-      appointment,
+      appointment: {
+        ...appointment.toJSON(),
+        servicename,
+        providerName,
+        patientName,
+      },
       payment,
     });
   } catch (error) {
@@ -103,10 +127,50 @@ exports.updateAppointment = async (req, res) => {
 exports.deleteAppointment = async (req, res) => {
   const appointmentId = req.params.id;
   try {
+    const appointment = await Appointment.findByPk(appointmentId);
+      if (!appointment) {
+        return res.status(404).json({Note: 'Appointment not found'});
+      }
     await Appointment.destroy({ where: { id: appointmentId } });
     res.status(200).json({ message: 'Appointment deleted successfully' });
   } catch (error) {
     console.error('Deletion Error', error);
     res.status(500).json({ message: 'Failed to delete Appointment' });
+  }
+};
+
+// Controller function to get appointments associated with the logged-in user (patient or provider)
+exports.getMyAppointments = async (req, res) => {
+  const { userId } = req; // Get the authenticated user ID
+  console.log(userId);
+
+  try {
+    // Check if the user is a patient
+    const patient = await Patient.findOne({ where: { userId: userId } });
+    if (patient) {
+      // If the user is a patient, retrieve their appointments
+      const appointments = await Appointment.findAll({
+        where: { patientId: patient.id },
+        include: [{ model: Provider }, { model: Service }],
+      });
+      return res.json(appointments);
+    }
+
+    // If the user is not a patient, check if they are a provider
+    const provider = await Provider.findOne({ where: { userId: userId } });
+    if (provider) {
+      // If the user is a provider, retrieve appointments with their providerId
+      const appointments = await Appointment.findAll({
+        where: { providerId: provider.id },
+        include: [{ model: Patient }, { model: Service }],
+      });
+      return res.json(appointments);
+    }
+
+    // If the user is neither a patient nor a provider, return an empty array
+    return res.json([]);
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    res.status(500).json({ error: 'Failed to fetch appointments' });
   }
 };

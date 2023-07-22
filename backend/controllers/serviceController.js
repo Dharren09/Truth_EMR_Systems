@@ -1,4 +1,4 @@
-const { Service, Provider } = require('../models');
+const { Service, Provider, ProviderService } = require('../models');
 const { Op } = require('sequelize');
 const sequelize = require('sequelize');
 
@@ -12,6 +12,24 @@ exports.getServices = async (req, res) => {
   }
 };
 
+
+exports.getServiceProviders = async (req, res) => {
+  const serviceId = req.params.serviceId;
+  
+  try {
+    const serviceProviders = await Provider.findAll({
+      include: [{
+        model: Service,
+        where: { id: serviceId },
+        through: { attributes: []},
+      },],
+    });
+    res.json(serviceProviders);
+  } catch (error) {
+    console.error('Error fetching associated providers', error);
+    res.status(500).json({ error: 'Failed to fetch associated providers'});
+  }
+}
 //
 exports.getServiceById = async (req, res) => {
   try {

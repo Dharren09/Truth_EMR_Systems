@@ -14,6 +14,21 @@ router.get('/', async(req, res) => {
     }
 });
 
+router.get('/:userId', async(req, res) => {
+    const userId = req.params.userId;
+    try {
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error('Error Specified user not found:', error);
+        res.status(500).json({error: 'User not found'})
+    }
+});
+
 router.put('/:id', async (req, res) => {
     const user = await User.findByPk(req.params.id)
     .then((user) => {

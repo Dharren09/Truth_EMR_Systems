@@ -14,6 +14,21 @@ router.get('/', async(req, res) => {
     }
 });
 
+router.get('/:patientId', async(req, res) => {
+    const patientId = req.params.patientId;
+    try {
+        const user = await Patient.findByPk(patientId);
+  
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error('Error Specified user not found:', error);
+        res.status(500).json({error: 'User not found'})
+    }
+  });
+
 router.put('/:id', async (req, res) => {
     const patient = await Patient.findByPk(req.params.id)
     .then((patient) => {
@@ -37,6 +52,10 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async(req, res) => {
     const patientId = req.params.id;
     try {
+        const patient = await Patient.findByPk(patientId);
+      if (!patient) {
+        return res.status(404).json({Note: 'Patient not found'});
+      }
         await Patient.destroy({where:{id: patientId}});
         res.status(200).json({message: 'Patient deleted successfuly'});
     } catch(error) {

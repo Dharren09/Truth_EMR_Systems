@@ -2,12 +2,15 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateTokenPat } = require('../middlewares/patientmw');
+const { authenticateToken } = require('../middlewares/middleware');
 const appointmentController = require('../controllers/appointmentController');
 
 
-router.get('/', appointmentController.getAppointments);
+router.get('/', authenticateToken('patient','provider'),appointmentController.getAppointments);
+router.get('/:id', appointmentController.getAppointmentById);
+router.get('/:id/my-appointments', authenticateToken('patient','provider'), appointmentController.getMyAppointments);
 router.post('/', authenticateTokenPat, appointmentController.createAppointment);
-router.put('/:id', appointmentController.updateAppointment);
-router.delete('/:id', appointmentController.deleteAppointment);
+router.put('/:id', authenticateToken('patient'), appointmentController.updateAppointment);
+router.delete('/:id', authenticateToken('patient'), appointmentController.deleteAppointment);
 
 module.exports = router;
