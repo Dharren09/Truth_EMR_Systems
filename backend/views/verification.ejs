@@ -1,0 +1,18 @@
+<!-- ejs template for verification -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TruthMD EHS Systems</title>
+    </head>
+    <body>
+        <h1>Account Verification</h1>
+        <p>Dear <%= username %>,</p>
+        <p>Thank you for signing up with TruthMD EHS Systems, your verification ID abd token are provided below.</p>
+        <ul>
+            <li>User ID: <%= id %></li>
+            <li>Token: <%= token %></li>
+        </ul>
+        <p>Verify using this link: <a href="https://localhost:8000/verify">Verify</a></p>
+        <p><b>This is an automatically generated email</b></p>
+    </body>
+</html>
