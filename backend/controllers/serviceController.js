@@ -91,18 +91,27 @@ exports.createService = async (req, res) => {
 };
 
 exports.updateService = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const service = await Service.findByPk(id);
+  const { id } = req.params;
+  const { userId } = req; 
 
+  try {
+    const service = await Service.findByPk(id, {
+      include: [Provider],
+    });
     if (!service) {
       return res.status(404).json({ error: 'Service not found' });
     }
 
-    // Update the service with the new data
-    await service.update(req.body);
+    const provider = await Provider.findOne({where:{userId: userId}})
 
-    res.json(service);
+    // Check if the authenticated user is one of the providers associated with the service
+    const serviceProviders = service.Providers.map(provider => provider.id);
+    if (!serviceProviders.includes(provider.id)) {
+      return res.status(403).json({ error: 'You are not authorized to update this service' });
+    }
+
+    await service.update(req.body);
+    res.json({ message: 'Service updated successfully' });
   } catch (error) {
     console.error('Error updating service:', error);
     res.status(500).json({ error: 'Failed to update service' });
@@ -110,14 +119,23 @@ exports.updateService = async (req, res) => {
 };
 
 exports.deleteService = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const service = await Service.findByPk(id);
+  const { id } = req.params;
+  const { userId } = req; 
 
+  try {
+    const service = await Service.findByPk(id, {
+      include: [Provider],
+    });
     if (!service) {
       return res.status(404).json({ error: 'Service not found' });
     }
+    const provider = await Provider.findOne({where:{userId: userId}})
 
+    // Check if the authenticated user is one of the providers associated with the service
+    const serviceProviders = service.Providers.map(provider => provider.id);
+    if (!serviceProviders.includes(provider.id)) {
+      return res.status(403).json({ error: 'You are not authorized to delete this service' });
+    }
     // Delete the service
     await service.destroy();
 

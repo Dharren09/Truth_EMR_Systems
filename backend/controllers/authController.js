@@ -106,8 +106,12 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.logoutUser = async (req, res) => {
-  const { userId } = req;
-  const token = jwt.sign({}, SECRET_KEY, { expiresIn: 0 });
-  res.clearCookie('access_token'); // Clear the token cookie
-  res.status(200).json({ message: 'Logged out successfully' });
+  try {
+    const token = jwt.sign({}, 'secret-key', { expiresIn: 0 });
+    res.clearCookie('access_token'); // Clear the token cookie
+    res.status(200).json({ message: 'Logged out successfully' });
+  } catch (error) {
+    console.error('Logout error:', error);
+    res.status(500).json({ error: 'Logout error occurred' });
+  }
 };
