@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const cors = require('cors'); // npm install cors
 
 const patientRoute = require('./routes/patients');
 const authRoute = require('./routes/auth');
@@ -16,9 +17,18 @@ app.use(express.urlencoded({ extended: true }));
 // db connection
 const db = require('./models');
 
+// Enable CORS on all routes
+app.use(cors());
+
+// serving react files from the react application
+const reactApp = path.join(__dirname, path...to the react templates);
+app.use(express.static(reactApp));
+
+// add the get route for the landing page
+
 //set views
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 //routes
 app.get('/', (req, res) => {
