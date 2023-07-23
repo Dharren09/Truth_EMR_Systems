@@ -94,8 +94,9 @@ db.sequelize.sync({ alter: true }).then(() => {
 .catch((error) => {
     console.error('DB connection failed:', error);
 });
+....
 
-React Application
+And for the React Application
 
 ```jsx
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
@@ -129,7 +130,8 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
+...
 
 **Simple instructions** to use the Electronic Hospital Records Management System via the Command Line Interface (CLI):
 Installation:
