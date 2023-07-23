@@ -1,15 +1,15 @@
 #TruthMD - Electronic Hospital Records Management System Portfolio Project 
 
-Overview
+## Overview
 TruthMD is an Electronic Health Records System (EHRs) that has been developed with the primary goal of streamlining and enhancing healthcare service delivery. This comprehensive system offers a secure, convenient, and user-friendly approach to managing health records in an electronic format. By transitioning from traditional paper-based records to electronic ones, TruthMD empowers healthcare providers to provide more efficient and accurate care to their patients.
 
-Problem Statement
+## Problem Statement
 The healthcare industry faces inefficiencies due to traditional paper-based record-keeping systems and limited communication between doctors and patients. This leads to data disorganization, privacy concerns, and reduced patient engagement. The problem is to develop TruthMD, an Electronic Health Records System (EHRs), to streamline healthcare services, enhance doctor-patient communication, ensure data security, and offer convenient patient record management with online bookings. The goal is to save time and resources for healthcare providers while improving patient outcomes and overall healthcare service delivery
 
-Solution
+## Solution
 The solution is TruthMD, an advanced Electronic Health Records System (EHRs) designed to overcome the challenges faced by the healthcare industry. TruthMD offers a secure and user-friendly platform for storing and accessing health records electronically. The system facilitates seamless communication between doctors and patients, empowering patients to actively engage in their healthcare. With robust data security measures, TruthMD ensures the privacy of patient information and compliance with industry standards. The platform also includes a convenient online booking system, streamlining administrative tasks and saving valuable time and resources for healthcare providers. By implementing TruthMD, healthcare facilities can improve patient care, enhance operational efficiency, and ultimately achieve better healthcare outcomes.
 
-Key Features:
+## Key Features:
 	.	Secure and Convenient Health Record Storage: TruthMD ensures that all health records are securely stored in an electronic database, protected from unauthorized access. This eliminates the risk of physical record loss and ensures data privacy and confidentiality.
 	.	Efficient Access to Health Records: With an electronic system, healthcare providers can easily access patient records anytime, anywhere. This quick access to comprehensive patient information enables faster and more informed decision-making, resulting in improved patient care and outcomes.
 	.	Enhanced Doctor-Patient Communication: TruthMD facilitates better communication between doctors and patients. Patients can interact with their healthcare providers, discuss concerns, and receive advice through the platform. This improves patient engagement and fosters a stronger doctor-patient relationship.
@@ -19,7 +19,7 @@ Key Features:
 	.	Data Analytics and Insights: The EHR system may offer data analytics tools to healthcare administrators, providing valuable insights into patient trends, treatment outcomes, and operational efficiencies. These insights can inform decision-making and quality improvement initiatives.
 	.	Compliance with Standards: TruthMD adheres to industry standards and regulations for electronic health record management. This ensures that the system meets the necessary legal and security requirements, protecting both patients and healthcare providers.
 
-Technologies
+## Technologies
 The hospital management system will be developed using the following technologies:
 Frameworks:
 	.	Backend Framework: Express.js
@@ -38,15 +38,15 @@ Languages:
                       • CSS
                       • JavaScript
 
-Project Timeline
+## Project Timeline
 * Week 1: Project setup and database design
 * Week 1: Front-end development, back-end development, and integration testing
 * Week 2: Web app development and user acceptance testing
 * Week 2: Bug fixing, performance optimization, and final deployment
 
-Some code snippets
+## Some code snippets
 
-**Express Application**
+## Express Application
 ```javascript
 const express = require('express');
 const app = express();
@@ -96,7 +96,7 @@ db.sequelize.sync({ alter: true }).then(() => {
 });
 ....
 
-And for the React Application
+## React Application
 
 ```jsx
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
@@ -133,7 +133,8 @@ function App() {
 export default App;
 ...
 
-**Simple instructions** to use the Electronic Hospital Records Management System via the Command Line Interface (CLI):
+## Simple instructions
+To use the Electronic Hospital Records Management System via the Command Line Interface (CLI):
 Installation:
 * Make sure you have Node.js and npm (Node Package Manager) installed on your system.
 * Clone the repository of the Electronic Hospital Records Management System to your local machine using **git clone**.
@@ -159,14 +160,14 @@ Exit the Application:
 * To stop the application, go to the terminal or command prompt where the backend and frontend servers are running.
 * Press Ctrl + C to stop the servers, and the application will no longer be accessible.
 
-Resources
+## Resources
 Other developers with a similar solution;
 Healthbridge by (Mubarak and Renish)
 
-**Future insights**
+## Future insights
 we envision scaling the Electronic Hospital Records Management System, TruthMD, to an industrial level, optimizing its performance for increased efficiency. We plan to incorporate web3 and blockchain technology, enabling blockchain-based transactions and smart contracts for secure and transparent data transfer. By leveraging cryptography, patient information will be safeguarded with utmost privacy and security. Additionally, integration with the metaverse will enhance patient-health worker relations through innovative communication channels. Moreover, we aim to develop an API, that allows seamless integration with existing hospital management systems. Continuously improving the UX/UI design will ensure the system aligns with the future preferences and expectations of both patients and healthcare providers, making TruthMD a cutting-edge solution in the healthcare industry.
 
-In conclusion
+## In conclusion
 TruthMD is a user-friendly Electronic Hospital Records Management System that aims to enhance healthcare services by providing secure storage of health records, improving doctor-patient communication, and offering convenient online appointment bookings. With Express.js and React as the core frameworks, backed by MySQL and Sequelize, the system ensures efficiency and accuracy in managing electronic health records. TruthMD revolutionizes healthcare delivery, saving time and resources while elevating patient outcomes and overall service quality.
 
 
