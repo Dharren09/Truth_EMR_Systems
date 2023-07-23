@@ -13,9 +13,10 @@ exports.getAllProviders = async (req, res) => {
 };
 
 exports.getProviderById = async (req, res) => {
-  const providerId = req.params.providerId;
+  const { userId } = req;
+  
   try {
-    const provider = await Provider.findByPk(providerId);
+    const provider = await Provider.findOne({where: { userId: userId}});
 
     if (!provider) {
       return res.status(404).json({ message: 'Provider not found' });
@@ -57,9 +58,9 @@ exports.getProviderServices = async (req, res) => {
 };
 
 exports.updateProvider = async (req, res) => {
-  const providerId = req.params.id;
+  const { userId } = req;
   try {
-    const provider = await Provider.findByPk(providerId);
+    const provider = await Provider.findOne({where: { userId: userId}});
     if (!provider) {
       return res.status(404).json({ message: 'Provider not found' });
     }
