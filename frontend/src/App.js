@@ -4,10 +4,9 @@ import { useAuthContext } from './hooks/useAuthContext'
 //pages & components
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
-import Service from './pages/Service'
-import Appointment from './pages/Appointment'
 import LoginForm from './pages/Login'
 import SignupForm from './pages/Signup'
+import ServicesPage from './pages/Service'
 
 
 function App() {
@@ -22,12 +21,10 @@ function App() {
             <Route path="/" element={auth_user ? <Home /> : <Navigate to="/login" />} />
             <Route path="/login" element={!auth_user ? <LoginForm /> : <Navigate to="/" />}  />
             <Route path="/signup" element={!auth_user ? <SignupForm /> : <Navigate to="/" />} />
-            <Route path="/services" element={<Service/>} />
-            <Route path="/appointments" element={<Appointment/>} />
+            <Route path="/services" element={<ServicesPage/>} />
           </Routes>
         </div>
       </BrowserRouter>
-
     </div>
   );
 }

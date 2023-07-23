@@ -43,16 +43,16 @@ const SignupForm =() => {
             />
             <label>Password: </label>
             <input 
-                type="text"
+                type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password} 
             />
             <label>Gender: </label>
-            <input 
-                type="text"
-                onChange={(e) => setGender(e.target.value)}
-                value={gender} 
-            />
+            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
             <label>Contact: </label>
             <input 
                 type="number"
@@ -72,11 +72,11 @@ const SignupForm =() => {
                 value={dob} 
             />
             <label>Role: </label>
-            <input 
-                type="text"
-                onChange={(e) => setRole(e.target.value)}
-                value={role} 
-            />
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
+                <option value="">Select Role</option>
+                <option value="provider">Admin</option>
+                <option value="patient">User</option>
+            </select>
             <button disabled={isLoading}>Sign up</button>
             {error && <div className="error">{error}</div>}
         </form>

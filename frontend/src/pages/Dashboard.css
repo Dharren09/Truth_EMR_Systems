@@ -1,0 +1,134 @@
+/* Dashboard.css */
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+  
+  /* Header Styles */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .logout-button {
+    padding: 8px 16px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    flex: 0 0 250px;
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-menu-item {
+    padding: 10px 0;
+  }
+  
+  .sidebar-menu-link {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .sidebar-menu-item.active .sidebar-menu-link {
+    font-weight: bold;
+  }
+  
+  /* Main Section Styles */
+  .main {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  /* Dashboard Card Styles */
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  
+  .card-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  /* Visit List Styles */
+  .visits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .visit-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Notification List Styles */
+  .notifications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .notification-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Educational Content Styles */
+  .educational-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .educational-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  

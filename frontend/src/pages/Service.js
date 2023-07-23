@@ -1,34 +1,65 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 
-import ServiceDetails  from '../components/ServiceDetails'
-import ServiceForm  from '../components/ServiceForm'
-
-
-const Service = () => {
+const ServicesPage = () => {
+  const { auth_user } = useAuthContext();
   const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchServices = async () => {
-      const response = await fetch('/services');
-      const json = await response.json();
+      try {
+        if (!auth_user) {
+          throw new Error('User not authenticated.');
+        }
 
-      if (response.ok) {
-        setServices(json);
+        const response = await fetch('/services', {
+          headers: {
+            'Authorization': `Bearer ${auth_user.token}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch services.');
+        }
+
+        const data = await response.json();
+        setServices(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
       }
     };
+
     fetchServices();
-  }, []);
+  }, [auth_user]);
+
+  if (!auth_user) {
+    return <p>Please log in to view services.</p>;
+  }
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
-    <div className="home">
-      <div className="services">
-        {services && services.map((service) => (
-          <ServiceDetails key={service.id} service={service} />
-        ))}
-      </div>
-      <ServiceForm />
+    <div>
+      <h1>Services</h1>
+      {services.map((service) => (
+        <div key={service.id}>
+          <h3>{service.name}</h3>
+          <p>{service.description}</p>
+          {/* Other service details */}
+        </div>
+      ))}
     </div>
   );
 };
 
-export default Service;
+export default ServicesPage;

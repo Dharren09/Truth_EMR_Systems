@@ -11,11 +11,22 @@ exports.getAppointments = async (req, res) => {
 };
 
 exports.getAppointmentById = async (req, res) => {
+  const { userId } = req;
+
   try {
+    const patient = await Patient.findOne({where: {userId: userId}})
+    if (!patient) {
+      return res.status(404).json({ message: 'Patient not found' });
+    }
+
     const appointmentId = req.params.id;
     const appointment = await Appointment.findByPk(appointmentId);
     if (!appointment) {
       return res.status(404).json({ error: 'Appointment not found' });
+    }
+
+    if (appointment.patientId !== patient.id) {
+      return res.status(403).json({ message: 'This appointment does not belong to you' });
     }
     res.json(appointment);
   } catch (error) {
@@ -108,16 +119,25 @@ exports.createAppointment = async (req, res) => {
 };
 
 exports.updateAppointment = async (req, res) => {
+  const { userId } = req;
+
   try {
     const appointment = await Appointment.findByPk(req.params.id);
-    if (appointment) {
-      Object.assign(appointment, req.body);
-      await appointment.save();
-      console.log('Appointment Updated:', appointment.toJSON());
-      res.status(200).json(appointment);
-    } else {
-      throw new Error('Appointment not Found');
+    if (!appointment) {
+      return res.status(404).json({message: 'Appointment not found'})
     }
+
+    const patient = await Patient.findOne({where: {userId: userId}})
+
+    if (appointment.patientId !== patient.id) {
+      return res.status(403).json({message: 'You not authorized to update this appointment'})
+    }
+    
+    Object.assign(appointment, req.body);
+    const updatedAppointment = await appointment.save();
+    console.log('Appointment Updated:', updatedAppointment.toJSON());
+    res.status(200).json(updatedAppointment);
+
   } catch (error) {
     console.error('Error updating Appointment:', error);
     res.status(500).json({ error: 'Failed to update Appointment' });

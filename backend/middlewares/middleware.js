@@ -1,7 +1,6 @@
 // middleware.js
 const jwt = require('jsonwebtoken');
 
-// Middleware function to check for a valid token
 const authenticateToken = (...userRole) => (req, res, next) => {
   // Check if the 'Authorization' header exists in the request
   const authorizationHeader = req.headers['authorization'];
@@ -9,7 +8,6 @@ const authenticateToken = (...userRole) => (req, res, next) => {
     return res.status(401).json({ error: 'User not logged in' });
   }
 
-  // Split the token from the 'Authorization' header
   const token = authorizationHeader.split(' ')[1];
   console.log(token);
 

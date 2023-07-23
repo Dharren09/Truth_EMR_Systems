@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const AppointmentForm = () => {
+  const { auth_user } = useAuthContext();
+
   const [services, setServices] = useState([]);
   const [providers, setProviders] = useState([]);
   const [selectedService, setSelectedService] = useState('');
@@ -16,22 +19,33 @@ const AppointmentForm = () => {
     // Fetch services data from the backend
     const fetchServices = async () => {
       try {
-        const response = await axios.get('/services'); // Replace with your API endpoint for fetching services
+        const response = await axios.get('/services', {
+          headers: {
+            Authorization: `Bearer ${auth_user.token}`,
+          },
+        });
         const servicesData = response.data;
         setServices(servicesData);
+        console.log(servicesData)
       } catch (error) {
         console.error('Error fetching services:', error);
       }
     };
 
     fetchServices();
-  }, []);
+  }, [auth_user]);
 
   const handleServiceChange = async (event) => {
     const serviceId = event.target.value;
     setSelectedService(serviceId);
+
     try {
-      const response = await axios.get('/providers'); // Replace with your API endpoint for fetching providers associated with a service
+      const response = await axios.get(`/services/providers/${serviceId}`, {
+        headers: {
+          Authorization: `Bearer ${auth_user.token}`,
+        },
+        },
+      );
       const providersData = response.data;
       setProviders(providersData);
     } catch (error) {
@@ -54,7 +68,12 @@ const AppointmentForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+/*
+    if (!auth_user) {
+      setError('You must be logged in')
+      return
+    }
+*/
     // Validate the form inputs
     if (!selectedService || !selectedProvider || !appointmentDate) {
       setErrorMessage('Please fill in all the required fields');
@@ -68,6 +87,11 @@ const AppointmentForm = () => {
         serviceId: selectedService,
         appointmentDate,
         additionalInfo,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${auth_user.token}`,
+        },
       }); // Replace with your API endpoint for creating appointments
 
       // Reset form inputs and error message
