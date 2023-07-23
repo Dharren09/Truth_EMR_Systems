@@ -129,3 +129,28 @@ form.signup, form.login {
   border-radius: 4px;
 }
 
+/* providerServices.css */
+
+.service-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.service-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.service-description {
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.service-price {
+  font-size: 16px;
+  font-weight: bold;
+}

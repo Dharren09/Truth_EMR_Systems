@@ -4,7 +4,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 const Navbar = () => {
   const { logout } = useLogout()
-  const { user } = useAuthContext()
+  const { auth_user } = useAuthContext()
 
   const handleClick = () => {
     logout()
@@ -17,13 +17,13 @@ const Navbar = () => {
           <h1>TruthMD EHR Systems</h1>
         </Link>
         <nav>
-          {user && (
+          {auth_user && (
             <div>
-              <span>{user.email}</span>
+              <span>{auth_user.email}</span>
               <button onClick={handleClick}>Logout</button>
             </div>
           )}
-          {!user && (
+          {!auth_user && (
             <div>
               <Link to="/login">Login</Link>
               <Link to="/signup">Signup</Link>
