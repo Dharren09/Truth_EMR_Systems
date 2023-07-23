@@ -1,4 +1,4 @@
-TruthMD - Electronic Hospital Records Management System Portfolio Project 
+#TruthMD - Electronic Hospital Records Management System Portfolio Project 
 
 Overview
 TruthMD is an Electronic Health Records System (EHRs) that has been developed with the primary goal of streamlining and enhancing healthcare service delivery. This comprehensive system offers a secure, convenient, and user-friendly approach to managing health records in an electronic format. By transitioning from traditional paper-based records to electronic ones, TruthMD empowers healthcare providers to provide more efficient and accurate care to their patients.
@@ -34,9 +34,9 @@ Templating Engine:
 Languages:
 	.	Backend Language: Node.js
 	.	Frontend Languages:
-*  HTML
-* CSS
-* JavaScript
+                      • HTML
+                      • CSS
+                      • JavaScript
 
 Project Timeline
 * Week 1: Project setup and database design
@@ -45,6 +45,7 @@ Project Timeline
 * Week 2: Bug fixing, performance optimization, and final deployment
 
 Some code snippets
+
 **Express Application**
 ```javascript
 const express = require('express');
@@ -94,7 +95,8 @@ db.sequelize.sync({ alter: true }).then(() => {
     console.error('DB connection failed:', error);
 });
 
-**React Application**
+React Application
+
 ```jsx
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
