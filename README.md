@@ -1,42 +1,45 @@
-#TruthMD - Electronic Hospital Records Management System Portfolio Project 
+# TruthMD - Electronic Hospital Records Management System Portfolio Project 
 
 ## Overview
-TruthMD is an Electronic Health Records System (EHRs) that has been developed with the primary goal of streamlining and enhancing healthcare service delivery. This comprehensive system offers a secure, convenient, and user-friendly approach to managing health records in an electronic format. By transitioning from traditional paper-based records to electronic ones, TruthMD empowers healthcare providers to provide more efficient and accurate care to their patients.
+TruthMD is an Electronic Health Records System (EHRs) that has been developed with the primary goal of streamlining and enhancing healthcare service delivery. 
+This comprehensive system offers a secure, convenient, and user-friendly approach to managing health records in an electronic format. By transitioning from traditional paper-based records to electronic ones, TruthMD empowers healthcare providers to provide more efficient and accurate care to their patients.
 
 ## Problem Statement
-The healthcare industry faces inefficiencies due to traditional paper-based record-keeping systems and limited communication between doctors and patients. This leads to data disorganization, privacy concerns, and reduced patient engagement. The problem is to develop TruthMD, an Electronic Health Records System (EHRs), to streamline healthcare services, enhance doctor-patient communication, ensure data security, and offer convenient patient record management with online bookings. The goal is to save time and resources for healthcare providers while improving patient outcomes and overall healthcare service delivery
+The healthcare industry faces inefficiencies due to traditional paper-based record-keeping systems and limited communication between doctors and patients. 
+This leads to data disorganization, privacy concerns, and reduced patient engagement. The problem is to develop TruthMD, an Electronic Health Records System (EHRs), to streamline healthcare services, enhance doctor-patient communication, ensure data security, and offer convenient patient record management with online bookings. The goal is to save time and resources for healthcare providers while improving patient outcomes and overall healthcare service delivery
 
 ## Solution
 The solution is TruthMD, an advanced Electronic Health Records System (EHRs) designed to overcome the challenges faced by the healthcare industry. TruthMD offers a secure and user-friendly platform for storing and accessing health records electronically. The system facilitates seamless communication between doctors and patients, empowering patients to actively engage in their healthcare. With robust data security measures, TruthMD ensures the privacy of patient information and compliance with industry standards. The platform also includes a convenient online booking system, streamlining administrative tasks and saving valuable time and resources for healthcare providers. By implementing TruthMD, healthcare facilities can improve patient care, enhance operational efficiency, and ultimately achieve better healthcare outcomes.
 
 ## Key Features:
-	.	Secure and Convenient Health Record Storage: TruthMD ensures that all health records are securely stored in an electronic database, protected from unauthorized access. This eliminates the risk of physical record loss and ensures data privacy and confidentiality.
-	.	Efficient Access to Health Records: With an electronic system, healthcare providers can easily access patient records anytime, anywhere. This quick access to comprehensive patient information enables faster and more informed decision-making, resulting in improved patient care and outcomes.
-	.	Enhanced Doctor-Patient Communication: TruthMD facilitates better communication between doctors and patients. Patients can interact with their healthcare providers, discuss concerns, and receive advice through the platform. This improves patient engagement and fosters a stronger doctor-patient relationship.
-	.	Convenient Online Bookings: Patients can schedule appointments and manage their bookings online from the comfort of their homes. This feature reduces the administrative burden on healthcare facilities and allows patients to choose suitable time slots for their appointments.
-	.	Improved Accuracy and Efficiency: Electronic health records reduce the chances of errors commonly associated with manual data entry. This, in turn, enhances the overall efficiency of healthcare services, as doctors and medical staff can focus more on patient care rather than dealing with paperwork.
-	.	Resource and Time Savings: TruthMD saves time and valuable resources for doctors and healthcare providers. By automating various administrative tasks, the system streamlines workflows and allows medical professionals to allocate more time to patient care.
-	.	Data Analytics and Insights: The EHR system may offer data analytics tools to healthcare administrators, providing valuable insights into patient trends, treatment outcomes, and operational efficiencies. These insights can inform decision-making and quality improvement initiatives.
-	.	Compliance with Standards: TruthMD adheres to industry standards and regulations for electronic health record management. This ensures that the system meets the necessary legal and security requirements, protecting both patients and healthcare providers.
+* Secure and Convenient Health Record Storage: TruthMD ensures that all health records are securely stored in an electronic database, protected from unauthorized access. This eliminates the risk of physical record loss and ensures data privacy and confidentiality.
+* Efficient Access to Health Records: With an electronic system, healthcare providers can easily access patient records anytime, anywhere. This quick access to comprehensive patient information enables faster and more informed decision-making, resulting in improved patient care and outcomes.
+* Enhanced Doctor-Patient Communication: TruthMD facilitates better communication between doctors and patients. Patients can interact with their healthcare providers, discuss concerns, and receive advice through the platform. This improves patient engagement and fosters a stronger doctor-patient relationship.
+* Convenient Online Bookings: Patients can schedule appointments and manage their bookings online from the comfort of their homes. This feature reduces the administrative burden on healthcare facilities and allows patients to choose suitable time slots for their appointments.
+* Improved Accuracy and Efficiency: Electronic health records reduce the chances of errors commonly associated with manual data entry. This, in turn, enhances the overall efficiency of healthcare services, as doctors and medical staff can focus more on patient care rather than dealing with paperwork.
+* Resource and Time Savings: TruthMD saves time and valuable resources for doctors and healthcare providers. By automating various administrative tasks, the system streamlines workflows and allows medical professionals to allocate more time to patient care.
+* Data Analytics and Insights: The EHR system may offer data analytics tools to healthcare administrators, providing valuable insights into patient trends, treatment outcomes, and operational efficiencies. These insights can inform decision-making and quality improvement initiatives.
+* Compliance with Standards: TruthMD adheres to industry standards and regulations for electronic health record management. This ensures that the system meets the necessary legal and security requirements, protecting both patients and healthcare providers.
 
 ## Technologies
 The hospital management system will be developed using the following technologies:
 Frameworks:
-	.	Backend Framework: Express.js
-	.	Frontend Framework: React
+* 	Backend Framework: Express.js
+* 	Frontend Framework: React
+
 Relational Database Management System (RDBMS):
-	.	MySQL
+* 	MySQL
 Object-Relational Mapping (ORM):
-	.	Sequelize
+* 	Sequelize
 Templating Engine:
-	.	Embedded JavaScript (EJS)
-	.	Handlebars
+* 	Embedded JavaScript (EJS)
+* 	Handlebars
 Languages:
-	.	Backend Language: Node.js
-	.	Frontend Languages:
-                      • HTML
-                      • CSS
-                      • JavaScript
+* 	Backend Language: Node.js
+* 	Frontend Languages:
+	* HTML
+	* CSS
+	* JavaScript
 
 ## Project Timeline
 * Week 1: Project setup and database design
