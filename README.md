@@ -97,7 +97,7 @@ db.sequelize.sync({ alter: true }).then(() => {
 .catch((error) => {
     console.error('DB connection failed:', error);
 });
-....
+```
 
 ## React Application
 
@@ -134,7 +134,7 @@ function App() {
 }
 
 export default App;
-...
+```
 
 ## Simple instructions
 To use the Electronic Hospital Records Management System via the Command Line Interface (CLI):
